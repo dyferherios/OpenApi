@@ -1,0 +1,109 @@
+openapi: 3.0.3
+info:
+  title: STD23097 - TD4
+  version: '1.0.0'
+servers:
+  - url: https://localhost.std23097.com
+paths:
+  /customers/{customerId}/orders:
+    get:
+      tags:
+        - Get all orders for a specific customer
+      operationId: getAllOrdersByCustomer
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: reference
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of orders for a specific customer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      tags:
+        - Post a new order for a specific customer
+      operationId: postOrderForCustomer
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          description: Order created successfully for the customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+    put:
+      tags:
+        - Update an order for a specific customer
+      operationId: updateOrderForCustomer
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '202':
+          description: Order updated successfully for the customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        orderId:
+          type: integer
+        reference:
+          type: string
+          description: "Numéro de commande unique"
+        customerId:
+          type: string
+          description: "Identifiant unique du client"
+        meals:
+          type: array
+          items:
+            type: object
+            properties:
+              mealId:
+                type: string
+                description: "Identifiant unique du plat"
+              quantity:
+                type: integer
+                description: "Quantité commandée"
+        orderDatetime:
+          type: string
+          format: date-time
+          description: "Date et heure de la commande, générée automatiquement"
+      required:
+        - orderId
+        - reference
+        - customerId
+        - meals
