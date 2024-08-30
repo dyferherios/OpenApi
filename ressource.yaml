@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: STD23097 - TD3
-  version: '1.0.3'
+  version: '1.0.5'
 servers:
   - url: https://localhost.std23097.com
 paths:
@@ -51,7 +51,7 @@ paths:
                   $ref: '#/components/schemas/Meal'
     put:
       tags:
-        - Update a meal
+        - Update all information of a meal
       requestBody:
         content:
           application/json:
@@ -69,6 +69,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
+    
+    patch:
+      tags:
+        - Update some information of a meal
+      requestBody:
+        description: Update a meal
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MealIdentifier'
+        required: true
+      responses:
+        200:
+          description: Meal updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+
+
     delete:
       tags:
         - Delete a meal
