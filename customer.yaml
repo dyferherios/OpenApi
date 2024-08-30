@@ -64,7 +64,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CustomerIdentifier'
+                  $ref: '#/components/schemas/Customer'
     patch:
       tags:
         - Update some information of customer
@@ -74,7 +74,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Customer'
+                $ref: '#/components/schemas/CustomerIdentifier'
         required: true
       responses:
         200:
